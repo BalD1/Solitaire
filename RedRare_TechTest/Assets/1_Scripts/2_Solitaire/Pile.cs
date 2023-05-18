@@ -17,12 +17,14 @@ public class Pile : EventHandlerMono
 
     protected override void EventRegister()
     {
-        DeckEventsHandler.OnDeckCreated += InitializePile;
+        DeckEventsHandler.OnDeckCreated += GetDeck;
+        SolitaireManagerEventsHandler.OnStartGame += InitializePile;
     }
 
     protected override void EventUnRegister()
     {
-        DeckEventsHandler.OnDeckCreated -= InitializePile;
+        DeckEventsHandler.OnDeckCreated -= GetDeck;
+        SolitaireManagerEventsHandler.OnStartGame -= InitializePile;
     }
 
     private void Reset()
@@ -30,10 +32,10 @@ public class Pile : EventHandlerMono
         spriteRenderer = this.GetComponent<SpriteRenderer>();
     }
 
-    private void InitializePile(Deck _deck)
-    {
-        deck = _deck;
+    private void GetDeck(Deck _deck) => this.deck = _deck;
 
+    private void InitializePile()
+    {
         // draw cards in deck to create the pile
         cardsInPile = new Queue<Card>(deck.DrawCardMultiple(BASE_CARDS_IN_PILE));
 

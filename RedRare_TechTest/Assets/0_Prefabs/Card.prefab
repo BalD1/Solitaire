@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 402297193140103760}
+  speed: 2
 --- !u!212 &402297193140103760
 SpriteRenderer:
   m_ObjectHideFlags: 0

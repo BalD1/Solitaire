@@ -2,48 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CardReceiver))]
 public class CardRow : EventHandlerMono
 {
     [SerializeField] private int rowID;
 
-    [SerializeField] private float cardsOffset = .25f;
+    [SerializeField] private CardReceiver cardReceiver;
 
     private Deck deck;
-
-    private Stack<Card> cards;
 
     private void Reset()
     {
         int.TryParse(this.gameObject.name.Replace("Row_", ""), out rowID);
-        cardsOffset = .25f;
+
+        cardReceiver = this.GetComponent<CardReceiver>();
     }
 
     protected override void EventRegister()
     {
-        DeckEventsHandler.OnDeckCreated += InitializeRows;
+        DeckEventsHandler.OnDeckCreated += GetDeck;
+        SolitaireManagerEventsHandler.OnStartGame += InitializeRows;
     }
 
     protected override void EventUnRegister()
     {
-        DeckEventsHandler.OnDeckCreated -= InitializeRows;
+        DeckEventsHandler.OnDeckCreated -= GetDeck;
+        SolitaireManagerEventsHandler.OnStartGame -= InitializeRows;
     }
 
-    private void InitializeRows(Deck _deck)
-    {
-        deck = _deck;
+    private void GetDeck(Deck _deck) => this.deck = _deck;
 
+    private void InitializeRows()
+    {
         List<Card> cardsList = deck.DrawCardMultiple(rowID);
 
         for (int i = 0; i < cardsList.Count; i++)
         {
-            Vector2 pos = this.transform.position;
-            pos.y -= cardsOffset * i;
-
-            cardsList[i].transform.position = pos;
             cardsList[i].gameObject.SetActive(true);
+            cardReceiver.ReceiveCard(cardsList[i]);
         }
 
-        cards = new Stack<Card>(cardsList);
-        cards.Peek().SetCardState(recto: true);
+        cardReceiver?.PeekNextCard().SetCardState(recto: true);
     }
 }

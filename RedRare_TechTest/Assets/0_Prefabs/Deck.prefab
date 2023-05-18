@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5222161016598795082}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -7.5, y: 3.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0383ecc245890ef45ae745ac50e574dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CardsDeck>k__BackingField: []
+  cardsDeck: []
   cardPrefab: {fileID: 402297193140103763, guid: a5e3a5283f1b58b48ab7259e537de3ff, type: 3}
   cardsSpriteSheet: {fileID: 2800000, guid: 3112f3833433f8d42ba7a08f174f2f11, type: 3}
   cardsParent: {fileID: 1205057082}

@@ -19,14 +19,18 @@ public class Deck : EventHandlerMono
 
     protected override void EventRegister()
     {
-        SolitaireManagerEventsHandler.OnStartGame += BuildDeck;
     }
 
     protected override void EventUnRegister()
     {
-        SolitaireManagerEventsHandler.OnStartGame += BuildDeck;
     }
 
+    protected override void Start()
+    {
+        base.Start();
+
+        BuildDeck();
+    }
 
     /// <summary>
     /// Automaticaly builds the deck by creating cards from a prefab, then getting the right sprite from a texture
