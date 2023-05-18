@@ -17,12 +17,12 @@ public class Pile : EventHandlerMono
 
     protected override void EventRegister()
     {
-        DeckEventsHandler.OnDeckCreated += CreatePile;
+        DeckEventsHandler.OnDeckCreated += InitializePile;
     }
 
     protected override void EventUnRegister()
     {
-        DeckEventsHandler.OnDeckCreated -= CreatePile;
+        DeckEventsHandler.OnDeckCreated -= InitializePile;
     }
 
     private void Reset()
@@ -30,7 +30,7 @@ public class Pile : EventHandlerMono
         spriteRenderer = this.GetComponent<SpriteRenderer>();
     }
 
-    private void CreatePile(Deck _deck)
+    private void InitializePile(Deck _deck)
     {
         deck = _deck;
 

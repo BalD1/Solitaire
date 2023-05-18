@@ -14,8 +14,6 @@ public class Deck : EventHandlerMono
 
     [SerializeField] private Sprite cardsVersoSprite;
 
-
-
     private const int DECK_SIZE = 52;
     private const int TEXTURE_CARDS_PER_ROW = 13;
 

@@ -12,10 +12,5 @@ public class SolitaireManager : EventHandlerMono
     {
     }
 
-    protected override void Start()
-    {
-        base.Start();
-
-        this.StartGame();
-    }
+    public void CallStartGame() => this.StartGame();
 }
