@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class #SCRIPTNAME# : Singleton<#SCRIPTNAME#>
+public abstract class UIManager : Singleton<UIManager>
 {
 	protected override void Awake()
 	{

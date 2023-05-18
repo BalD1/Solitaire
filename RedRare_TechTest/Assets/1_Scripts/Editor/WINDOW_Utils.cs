@@ -5,6 +5,8 @@ using UnityEditor;
 using BalDUtilities.EditorUtils;
 using BalDUtilities.Misc;
 using System;
+using System.IO;
+using System.Collections.Generic;
 
 public class WINDOW_Utils : EditorWindow
 {
@@ -17,7 +19,7 @@ public class WINDOW_Utils : EditorWindow
 
     private bool showUIUtils;
 
-    private string[] scenesNames = null;
+    private List<string> scenes = new List<string>();
 
     private const string SCENES_FOLDER_PATH = "Assets/4_Scenes/";
 
@@ -46,16 +48,6 @@ public class WINDOW_Utils : EditorWindow
 
     private void ScenesManagement()
     {
-        if (scenesNames == null || scenesNames.Length == 0)
-        {
-            int sceneCount = SceneManager.sceneCountInBuildSettings;
-            string[] scenesNames = new string[sceneCount];
-            for (int i = 0; i < sceneCount; i++)
-            {
-                scenesNames[i] = System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i));
-            }
-        }
-
         EditorGUILayout.BeginVertical("GroupBox");
 
         // Set the scollView size, keep at 0 for auto size
@@ -64,17 +56,40 @@ public class WINDOW_Utils : EditorWindow
 
         scenesScroll = EditorGUILayout.BeginScrollView(scenesScroll, GUILayout.Height(scenesScrollView));
 
-        // check if there is more than 1 value in "GameManager.E_ScenesNames"
-        
         showScenes = EditorGUILayout.Foldout(showScenes, "Scenes management");
 
         if (showScenes)
         {
             EditorGUI.indentLevel++;
+
+            // Repopulates the scene list in SCENES_FOLDER_PATH
+            if (GUILayout.Button("Update Scenes List") || scenes == null || scenes.Count == 0)
+            {
+                scenes = new List<string>();
+
+                // get the files
+                string[] files = Directory.GetFiles(SCENES_FOLDER_PATH);
+
+                string current;
+                for (int i = 0; i < files.Length; ++i)
+                {
+                    current = files[i];
+
+                    // if is scene
+                    if (current.EndsWith(".unity"))
+                    {
+                        // strip string to only get the scene name
+                        current = current.Replace(".unity", "");
+                        current = current.Replace(SCENES_FOLDER_PATH, "");
+                        scenes.Add(current);
+                    }
+                }
+            }
+
             EditorGUILayout.BeginVertical("GroupBox");
 
             // iterate through every scene names
-            foreach (var item in scenesNames)
+            foreach (var item in scenes)
             {
                 // ignore if "item" is the current scene
                 if (item == SceneManager.GetActiveScene().name) continue;
