@@ -5,7 +5,8 @@ using UnityEngine;
 
 public static class SolitaireManagerEventsHandler
 {
-    public static Action OnStartGame;
+    public static event Action OnStartGame;
     public static void StartGame(this SolitaireManager solitaireManager)
         => OnStartGame?.Invoke();
+
 }

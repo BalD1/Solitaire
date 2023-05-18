@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CardReceiver))]
-public class CardRow : EventHandlerMono
+public class CardRow : EventHandlerMono, IClickable
 {
     [SerializeField] private int rowID;
 
@@ -18,6 +18,11 @@ public class CardRow : EventHandlerMono
         cardReceiver = this.GetComponent<CardReceiver>();
     }
 
+    protected override void Start()
+    {
+        base.Start();
+    }
+
     protected override void EventRegister()
     {
         DeckEventsHandler.OnDeckCreated += GetDeck;
@@ -30,7 +35,11 @@ public class CardRow : EventHandlerMono
         SolitaireManagerEventsHandler.OnStartGame -= InitializeRows;
     }
 
-    private void GetDeck(Deck _deck) => this.deck = _deck;
+    private void GetDeck(Deck _deck)
+    {
+        Debug.Log(this.gameObject.name);
+        this.deck = _deck;
+    }
 
     private void InitializeRows()
     {
@@ -39,9 +48,15 @@ public class CardRow : EventHandlerMono
         for (int i = 0; i < cardsList.Count; i++)
         {
             cardsList[i].gameObject.SetActive(true);
-            cardReceiver.ReceiveCard(cardsList[i]);
+            cardReceiver.ForceLayCard(cardsList[i]);
         }
 
         cardReceiver?.PeekNextCard().SetCardState(recto: true);
     }
+
+    public void OnMouseInputDown() { }
+
+    public void OnMouseInputUp() { }
+
+    public GameObject GetGameObject() => this.gameObject;
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -6,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class Card : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
 
     [SerializeField] private float speed = 2f;
 
@@ -15,6 +16,8 @@ public class Card : MonoBehaviour
 
     private Vector2 targetPos;
     private bool move = false;
+
+    private Action onMovementEndedAction;
 
     // /!\ L'ordre dans l'enum doit respecter l'ordre de la texture Spritesheet
     public enum E_CardFamily
@@ -44,7 +47,7 @@ public class Card : MonoBehaviour
 
     private void Reset()
     {
-        spriteRenderer = this.GetComponent<SpriteRenderer>();
+        SpriteRenderer = this.GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -64,12 +67,14 @@ public class Card : MonoBehaviour
 
     public void SetCardState(bool recto)
     {
-        this.spriteRenderer.sprite = recto ? rectoSprite : versoSprite;
+        this.SpriteRenderer.sprite = recto ? rectoSprite : versoSprite;
     }
 
-    public void StartMovingTo(Vector2 targetPosition)
+    public void StartMovingTo(Vector2 _targetPosition, Action _onMovementEndedAction = null)
     {
-        targetPos = targetPosition;
+        targetPos = _targetPosition;
+        onMovementEndedAction = _onMovementEndedAction;
+
         move = true;
     }
 
@@ -80,6 +85,9 @@ public class Card : MonoBehaviour
         // if we arrived at the target position, stop moving
         if (Approximate(this.transform.position, targetPos, .01f))
         {
+            onMovementEndedAction?.Invoke();
+            onMovementEndedAction = null;
+
             move = false;
             this.transform.position = targetPos;
         }
