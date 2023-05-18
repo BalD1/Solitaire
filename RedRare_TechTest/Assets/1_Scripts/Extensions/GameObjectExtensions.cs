@@ -3,6 +3,21 @@ using UnityEngine;
 
 public static class GameObjectExtensions
 {
+    #region Create
+
+    public static GameObject Create(this GameObject gameObject)
+    {
+        if (gameObject == null) return null;
+        GameObject gO = GameObject.Instantiate(gameObject);
+        return gO;
+    }
+    public static T Create<T>(this GameObject gameObject) where T : Component
+    {
+        if (gameObject == null) return null;
+        GameObject gO = GameObject.Instantiate(gameObject);
+        return gO.GetComponent<T>();
+    }
+
     public static GameObject Create(this GameObject gameObject, Vector2 position)
     {
         if (gameObject == null) return null;
@@ -40,5 +55,7 @@ public static class GameObjectExtensions
         if (gameObject == null) return null;
         GameObject gO = GameObject.Instantiate(gameObject, parent);
         return gO;
-    }
+    } 
+
+    #endregion
 }
