@@ -564,6 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479478a03e265244e9450f7993c1ecac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardsGrabOffset: 0.25
 --- !u!1001 &452532643
 PrefabInstance:
   m_ObjectHideFlags: 0

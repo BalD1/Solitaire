@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8697559328401600001}
-  - component: {fileID: 8697559328401600124}
+  - component: {fileID: 7788818943663428043}
   - component: {fileID: 8697559328401600002}
   - component: {fileID: 8697559328401600003}
   m_Layer: 0
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 8697559329573583609}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8697559328401600124
+--- !u!114 &7788818943663428043
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,11 +43,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8697559328401600000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8febb23240b74bc448bc9e5c1ace09d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 7dc2d7c291b991d49a5db8df30f55427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardsOffset: 0
-  trigger: {fileID: 8697559328401600003}
 --- !u!212 &8697559328401600002
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -177,7 +176,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8697559329573583610}
   cardBackSprite: {fileID: 21300000, guid: b89990f9a9fb4ec4a8a6c34b487fdd32, type: 3}
   emptyPileSprite: {fileID: 21300000, guid: 2207c32982b38a648944845edf4936f8, type: 3}
-  cardReceiver: {fileID: 8697559328401600124}
+  cardReceiver: {fileID: 7788818943663428043}
   pileRefillCooldown: 0.5
 --- !u!212 &8697559329573583610
 SpriteRenderer:
