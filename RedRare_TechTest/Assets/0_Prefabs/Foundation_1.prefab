@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardsOffset: 0.25
+  trigger: {fileID: 186662479296993722}
 --- !u!212 &186662479296993721
 SpriteRenderer:
   m_ObjectHideFlags: 0

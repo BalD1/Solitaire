@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CardReceiver))]
-public class CardRow : EventHandlerMono, IClickable
+public class CardRow : EventHandlerMono
 {
     [SerializeField] private int rowID;
 
@@ -37,7 +37,6 @@ public class CardRow : EventHandlerMono, IClickable
 
     private void GetDeck(Deck _deck)
     {
-        Debug.Log(this.gameObject.name);
         this.deck = _deck;
     }
 
@@ -53,10 +52,6 @@ public class CardRow : EventHandlerMono, IClickable
 
         cardReceiver?.PeekNextCard().SetCardState(recto: true);
     }
-
-    public void OnMouseInputDown() { }
-
-    public void OnMouseInputUp() { }
 
     public GameObject GetGameObject() => this.gameObject;
 }

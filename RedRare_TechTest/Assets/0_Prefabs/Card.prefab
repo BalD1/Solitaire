@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <SpriteRenderer>k__BackingField: {fileID: 402297193140103760}
-  speed: 2
+  speed: 4
 --- !u!212 &402297193140103760
 SpriteRenderer:
   m_ObjectHideFlags: 0

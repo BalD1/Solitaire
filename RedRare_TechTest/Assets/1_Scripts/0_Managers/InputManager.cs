@@ -50,14 +50,14 @@ public class InputManager : EventHandlerMono
         // mouse down
         if (value.isPressed)
         {
-            this.MouseDown(worldMousePos);
             if (clickable != null) this.ClickableDown(clickable);
+            this.MouseDown(worldMousePos);
         }
         // mouse up
         else
         {
-            this.MouseUp(worldMousePos);
             if (clickable != null) this.ClickableUp(clickable);
+            this.MouseUp(worldMousePos);
         }
     }
 }

@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 38216275}
   - component: {fileID: 38216278}
+  - component: {fileID: 38216280}
   - component: {fileID: 38216277}
   - component: {fileID: 38216276}
   - component: {fileID: 38216279}
@@ -282,6 +283,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f6fc04e6540ea145ab20caa794ef9af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &38216280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38216274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 557479d7b3e232548916253aa3d347d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 38216275}
+  maxScale: {x: 1.2, y: 1.2, z: 1.2}
+  scaleTime: 0.4
+  inType: 14
+  outType: 16
 --- !u!4 &85290712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 186662479296993720, guid: 21e588f36a1205c438f091ffc6e11c53, type: 3}
@@ -1761,9 +1779,9 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: -0.00024998188
+    x: 0
     y: 0
-    width: 1.0005
+    width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
