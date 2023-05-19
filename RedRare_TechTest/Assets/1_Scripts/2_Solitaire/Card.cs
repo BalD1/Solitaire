@@ -78,6 +78,8 @@ public class Card : MonoBehaviour
         move = true;
     }
 
+    public void StopMovements() => move = false;
+
     private void PerfomMovements()
     {
         this.transform.position = Vector2.Lerp(this.transform.position, targetPos, Time.deltaTime * speed);
@@ -97,5 +99,18 @@ public class Card : MonoBehaviour
     {
         return Mathf.Abs(v1.x - v2.x) < tolerance && 
                Mathf.Abs(v1.y - v2.y) < tolerance;
+    }
+
+    public static bool CompareColor(E_CardFamily f1,  E_CardFamily f2) 
+    {
+        if (f1 == f2) return true;
+
+        // TODO : trouver un meilleur moyen ?
+        if (f1 == E_CardFamily.Hearts && f2 == E_CardFamily.Diamonds) return true;
+        if (f1 == E_CardFamily.Diamonds && f2 == E_CardFamily.Hearts) return true;
+        if (f1 == E_CardFamily.Spades && f2 == E_CardFamily.Clubs) return true;
+        if (f1 == E_CardFamily.Clubs && f2 == E_CardFamily.Spades) return true;
+
+        return false;
     }
 }

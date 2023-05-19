@@ -69,9 +69,8 @@ public class CardGrabManager : EventHandlerMono
         if (!cardReceiver.TryLayCard(grabbedCard)) return;
 
         this.PlacedCard(grabbedCard, cardReceiver);
-        grabbedCard.SpriteRenderer.sortingLayerName = SortingLayersNames.DEFAULT;
-        grabbedCard = null;
-        grabbedCardBaseReceiver = null;
+
+        ResetGrabbedCard();
     }
 
     private void OnMouseInputUp(Vector2 mousePos)
@@ -80,6 +79,13 @@ public class CardGrabManager : EventHandlerMono
 
         this.PlacedCard(grabbedCard, grabbedCardBaseReceiver);
         grabbedCardBaseReceiver.ForceLayCard(grabbedCard);
+
+        ResetGrabbedCard();
+    }
+
+    private void ResetGrabbedCard()
+    {
+        grabbedCard.SpriteRenderer.sortingLayerName = SortingLayersNames.DEFAULT;
         grabbedCard = null;
         grabbedCardBaseReceiver = null;
     }

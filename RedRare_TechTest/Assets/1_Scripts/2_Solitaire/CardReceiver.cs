@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,12 @@ public class CardReceiver : EventHandlerMono, IClickable
 
     [SerializeField] private BoxCollider2D trigger;
 
+    [SerializeField] private List<CardLayConditions_Base> cardLayConditions = new List<CardLayConditions_Base>();
+
     private Stack<Card> cards = new Stack<Card>();
+
+    public event Action<Card> OnRemoveCard;
+    public event Action<Card> OnLayCard;
 
     private void Reset()
     {
@@ -27,6 +33,10 @@ public class CardReceiver : EventHandlerMono, IClickable
         CardGrabManagerEventsHandler.OnPlacedCard -= OnPlacedCard;
     }
 
+
+    public void AddLayCondition(CardLayConditions_Base layCondition) => cardLayConditions.Add(layCondition);
+    public void RemoveLayCondition(CardLayConditions_Base layCondition) => cardLayConditions.Remove(layCondition);
+
     public void ForceLayCard(Card card)
     {
         PlaceCard(card);
@@ -34,6 +44,16 @@ public class CardReceiver : EventHandlerMono, IClickable
 
     public bool TryLayCard(Card card)
     {
+        foreach (var item in cardLayConditions)
+            if (item.CheckCandidateCard(card) == false) return false;
+
+        Card lastCard = PeekNextCard();
+        if (lastCard != null)
+        {
+            foreach (var item in cardLayConditions)
+                if (item.CheckLastCard(card, lastCard) == false) return false;
+        }
+
         PlaceCard(card);
 
         return true;
@@ -43,13 +63,22 @@ public class CardReceiver : EventHandlerMono, IClickable
     {
         cards.Push(card);
 
+        card.gameObject.SetActive(true);
+
         Vector2 pos = this.transform.position;
         pos.y -= cardsOffset * (cards.Count - 1);
 
         card.StartMovingTo(pos);
 
         ChangeCollider(addedCard: true);
+
+        OnLayCard?.Invoke(card);
     }
+
+    public int GetCardsCount() => cards.Count;
+    public Stack<Card> GetCards() => cards;
+
+    public void EmptyStack() => cards.Clear();
 
     public Card GetNextCard()
     {
@@ -58,6 +87,8 @@ public class CardReceiver : EventHandlerMono, IClickable
         Card cardToSend = cards.Pop();
 
         ChangeCollider(addedCard: false);
+
+        OnRemoveCard?.Invoke(cardToSend);
 
         return cardToSend;
     }

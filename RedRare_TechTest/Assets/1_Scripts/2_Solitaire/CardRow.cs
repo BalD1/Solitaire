@@ -21,6 +21,12 @@ public class CardRow : EventHandlerMono
     protected override void Start()
     {
         base.Start();
+
+        CardLayConditions_Color layConditions_Color = new CardLayConditions_Color(false, false);
+        CardLayConditions_Value cardLayConditions_Value = new CardLayConditions_Value(true);
+
+        cardReceiver.AddLayCondition(layConditions_Color);
+        cardReceiver.AddLayCondition(cardLayConditions_Value);
     }
 
     protected override void EventRegister()
@@ -50,8 +56,6 @@ public class CardRow : EventHandlerMono
             cardReceiver.ForceLayCard(cardsList[i]);
         }
 
-        cardReceiver?.PeekNextCard().SetCardState(recto: true);
+        cardReceiver.PeekNextCard()?.SetCardState(recto: true);
     }
-
-    public GameObject GetGameObject() => this.gameObject;
 }
