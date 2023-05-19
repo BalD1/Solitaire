@@ -20,6 +20,13 @@ public class BlurIntensity : MonoBehaviour
     private void Start()
     {
         intensityId = Shader.PropertyToID("_Intensity");
+
+        image.material.SetFloat(intensityId, 0);
+    }
+
+    private void OnDestroy()
+    {
+        image.material.SetFloat(intensityId, 0);
     }
 
     public void Show()
