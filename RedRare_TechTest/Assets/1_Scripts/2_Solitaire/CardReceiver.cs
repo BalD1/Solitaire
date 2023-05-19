@@ -9,19 +9,12 @@ public class CardReceiver : EventHandlerMono, IClickable
 {
     [SerializeField] private float cardsOffset = .25f;
 
-    [SerializeField] private BoxCollider2D trigger;
-
     [SerializeField] private List<CardLayConditions_Base> cardLayConditions = new List<CardLayConditions_Base>();
 
     private Stack<Card> cards = new Stack<Card>();
 
     public event Action<Card> OnRemoveCard;
     public event Action<Card> OnLayCard;
-
-    private void Reset()
-    {
-        trigger = this.GetComponent<BoxCollider2D>();
-    }
 
     protected override void EventRegister()
     {
@@ -70,7 +63,7 @@ public class CardReceiver : EventHandlerMono, IClickable
 
         card.StartMovingTo(pos);
 
-        ChangeCollider(addedCard: true);
+        card.SetCardReceiver(this);
 
         OnLayCard?.Invoke(card);
     }
@@ -85,8 +78,6 @@ public class CardReceiver : EventHandlerMono, IClickable
         if (cards == null || cards.Count == 0) return null;
 
         Card cardToSend = cards.Pop();
-
-        ChangeCollider(addedCard: false);
 
         OnRemoveCard?.Invoke(cardToSend);
 
@@ -107,29 +98,6 @@ public class CardReceiver : EventHandlerMono, IClickable
         if (cards.Count == 0) return;
 
         cards.Peek().SetCardState(recto: true);
-    }
-
-    /// <summary>
-    /// Change the receiver's collider when we add or remove a card.
-    /// </summary>
-    /// <param name="addedCard"></param>
-    private void ChangeCollider(bool addedCard)
-    {
-        // add, or remove, the cards offset to the size
-        Vector2 newTriggerSize = this.trigger.size;
-        newTriggerSize.y = addedCard ?
-                           newTriggerSize.y + cardsOffset :
-                           newTriggerSize.y - cardsOffset;
-
-        // add, or remove, the cards offset to the offset
-        float triggerOffset = cardsOffset / 2;
-        Vector2 newTriggerOffset = this.trigger.offset;
-        newTriggerOffset.y = addedCard ? 
-                             newTriggerOffset.y - triggerOffset :
-                             newTriggerOffset.y + triggerOffset;
-
-        this.trigger.offset = newTriggerOffset;
-        this.trigger.size = newTriggerSize;
     }
 
     public GameObject GetGameObject() => this.gameObject;

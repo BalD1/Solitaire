@@ -1,15 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEditor;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Card : MonoBehaviour
+public class Card : MonoBehaviour, IClickable
 {
     [field: SerializeField] public SpriteRenderer SpriteRenderer { get; private set; }
 
     [SerializeField] private float speed = 2f;
+
+    [field: SerializeField] public BoxCollider2D Trigger { get; private set; }
+
+    private CardReceiver cardReceiver;
 
     private Sprite rectoSprite;
     private Sprite versoSprite;
@@ -48,6 +54,7 @@ public class Card : MonoBehaviour
     private void Reset()
     {
         SpriteRenderer = this.GetComponent<SpriteRenderer>();
+        Trigger = this.GetComponent<BoxCollider2D>();
     }
 
     private void Update()
@@ -68,6 +75,7 @@ public class Card : MonoBehaviour
     public void SetCardState(bool recto)
     {
         this.SpriteRenderer.sprite = recto ? rectoSprite : versoSprite;
+        this.Trigger.enabled = recto ? true : false;
     }
 
     public void StartMovingTo(Vector2 _targetPosition, Action _onMovementEndedAction = null)
@@ -112,5 +120,46 @@ public class Card : MonoBehaviour
         if (f1 == E_CardFamily.Clubs && f2 == E_CardFamily.Spades) return true;
 
         return false;
+    }
+
+    public void SetCardReceiver(CardReceiver receiver) => cardReceiver = receiver;
+    public CardReceiver GetCardReceiver() => cardReceiver;
+
+    public GameObject GetGameObject() => this.gameObject;
+
+    public void OnMouseInputDown()
+    {
+        Debug.Log(this.ToString());
+    }
+
+    public void OnMouseInputUp()
+    {
+    }
+
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.Append(Data.CardFamily);
+        sb.Append(" - ");
+        int displayedVal = Data.Value + 1;
+        if (displayedVal <= 10) sb.Append(displayedVal);
+        else
+        {
+            switch (displayedVal)
+            {
+                case 11:
+                    sb.Append("Jack");
+                    break;
+                case 12:
+                    sb.Append("Queen");
+                    break;
+                case 13:
+                    sb.Append("King");
+                    break;
+            }
+        }
+
+        return sb.ToString();
     }
 }

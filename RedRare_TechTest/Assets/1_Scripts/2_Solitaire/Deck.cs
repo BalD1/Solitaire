@@ -66,7 +66,7 @@ public class Deck : EventHandlerMono
 
 #if UNITY_EDITOR
             // for debug ease only; not useful in build
-            card.gameObject.name = string.Format($"{card.Data.CardFamily.ToString()} - {card.Data.Value}") ;
+            card.gameObject.name = card.ToString();
 #endif
 
             card.gameObject.SetActive(false);

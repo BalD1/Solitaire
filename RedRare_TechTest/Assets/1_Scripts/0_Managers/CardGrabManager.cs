@@ -47,13 +47,13 @@ public class CardGrabManager : EventHandlerMono
     {
         if (grabbedCard != null) return;
 
-        CardReceiver cardReceiver = clickable.GetGameObject().GetComponent<CardReceiver>();
-        if (cardReceiver == null) return;
-
-        grabbedCard = cardReceiver.GetNextCard();
+        grabbedCard = clickable.GetGameObject().GetComponent<Card>();
         if (grabbedCard == null) return;
 
-        grabbedCardBaseReceiver = cardReceiver;
+        grabbedCardBaseReceiver = grabbedCard.GetCardReceiver();
+        grabbedCardBaseReceiver.GetNextCard();
+
+        grabbedCard.Trigger.enabled = false;
 
         grabbedCard.SpriteRenderer.sortingLayerName = SortingLayersNames.FG_LOWEST;
 
@@ -63,7 +63,10 @@ public class CardGrabManager : EventHandlerMono
     {
         if (grabbedCard == null) return;
 
-        CardReceiver cardReceiver = clickable.GetGameObject().GetComponent<CardReceiver>();
+        Card card = clickable.GetGameObject().GetComponent<Card>();
+
+        CardReceiver cardReceiver = card != null ? card.GetCardReceiver() :
+                                    clickable.GetGameObject().GetComponent<CardReceiver>();
         if (cardReceiver == null) return;
 
         if (!cardReceiver.TryLayCard(grabbedCard)) return;
@@ -86,6 +89,7 @@ public class CardGrabManager : EventHandlerMono
     private void ResetGrabbedCard()
     {
         grabbedCard.SpriteRenderer.sortingLayerName = SortingLayersNames.DEFAULT;
+        grabbedCard.Trigger.enabled = true;
         grabbedCard = null;
         grabbedCardBaseReceiver = null;
     }
