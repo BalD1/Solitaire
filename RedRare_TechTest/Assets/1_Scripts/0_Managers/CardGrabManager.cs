@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class CardGrabManager : EventHandlerMono
 {
-    private Card grabbedCard = null;
+    [SerializeField] private float cardsGrabOffset = .25f;
+
+    private List<Card> grabbedCards = new List<Card>();
 
     private Camera cam = null;
 
@@ -33,35 +36,43 @@ public class CardGrabManager : EventHandlerMono
 
     private void Update()
     {
-        if (grabbedCard != null) MoveGrabbedCardToMouse();
+        if (grabbedCards.Count > 0) MoveGrabbedCardToMouse();
     }
 
     private void MoveGrabbedCardToMouse()
     {
         Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
-        grabbedCard.StartMovingTo(mousePos);
+
+        Vector2 grabPos = mousePos;
+        for (int i = 0; i < grabbedCards.Count; i++)
+        {
+            grabPos.y = mousePos.y + (cardsGrabOffset * i);
+            grabbedCards[i].StartMovingTo(grabPos);
+        }
     }
 
     private void OnClickDown(IClickable clickable)
     {
-        if (grabbedCard != null) return;
+        if (grabbedCards.Count > 0) return;
 
-        grabbedCard = clickable.GetGameObject().GetComponent<Card>();
-        if (grabbedCard == null) return;
+        Card clickedOnCard = clickable.GetGameObject().GetComponent<Card>();
+        if (clickedOnCard == null) return;
 
-        grabbedCardBaseReceiver = grabbedCard.GetCardReceiver();
-        grabbedCardBaseReceiver.GetNextCard();
+        grabbedCardBaseReceiver = clickedOnCard.GetCardReceiver();
 
-        grabbedCard.Trigger.enabled = false;
-
-        grabbedCard.SpriteRenderer.sortingLayerName = SortingLayersNames.FG_LOWEST;
+        grabbedCards = grabbedCardBaseReceiver.GetEveryCardsTo(clickedOnCard);
+        foreach (var item in grabbedCards)
+        {
+            item.Trigger.enabled = false;
+            item.SpriteRenderer.sortingLayerName = SortingLayersNames.FG_LOWEST;
+        }
 
     }
 
     private void OnClickabkleUp(IClickable clickable)
     {
-        if (grabbedCard == null) return;
+        if (grabbedCards.Count == 0) return;
 
         Card card = clickable.GetGameObject().GetComponent<Card>();
 
@@ -69,28 +80,37 @@ public class CardGrabManager : EventHandlerMono
                                     clickable.GetGameObject().GetComponent<CardReceiver>();
         if (cardReceiver == null) return;
 
-        if (!cardReceiver.TryLayCard(grabbedCard)) return;
-
-        this.PlacedCard(grabbedCard, cardReceiver);
+        for (int i = grabbedCards.Count - 1; i >= 0; i--)
+        {
+            if (!cardReceiver.TryLayCard(grabbedCards[i])) return;
+            this.PlacedCard(grabbedCards[i], cardReceiver);
+        }
 
         ResetGrabbedCard();
     }
 
     private void OnMouseInputUp(Vector2 mousePos)
     {
-        if (grabbedCard == null) return;
+        if (grabbedCards.Count == 0) return;
 
-        this.PlacedCard(grabbedCard, grabbedCardBaseReceiver);
-        grabbedCardBaseReceiver.ForceLayCard(grabbedCard);
+        for (int i = grabbedCards.Count - 1; i >= 0; i--)
+        {
+            this.PlacedCard(grabbedCards[i], grabbedCardBaseReceiver);
+            grabbedCardBaseReceiver.ForceLayCard(grabbedCards[i]);
+        }
 
         ResetGrabbedCard();
     }
 
     private void ResetGrabbedCard()
     {
-        grabbedCard.SpriteRenderer.sortingLayerName = SortingLayersNames.DEFAULT;
-        grabbedCard.Trigger.enabled = true;
-        grabbedCard = null;
+        for (int i = 0; i < grabbedCards.Count; i++)
+        {
+            grabbedCards[i].SpriteRenderer.sortingLayerName = SortingLayersNames.DEFAULT;
+            grabbedCards[i].Trigger.enabled = true;
+        }
+
+        grabbedCards = new List<Card>();
         grabbedCardBaseReceiver = null;
     }
 }

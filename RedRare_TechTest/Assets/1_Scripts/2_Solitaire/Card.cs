@@ -23,6 +23,8 @@ public class Card : MonoBehaviour, IClickable
     private Vector2 targetPos;
     private bool move = false;
 
+    public bool IsOnRecto { get; private set; }
+
     private Action onMovementEndedAction;
 
     // /!\ L'ordre dans l'enum doit respecter l'ordre de la texture Spritesheet
@@ -62,6 +64,9 @@ public class Card : MonoBehaviour, IClickable
         if (move) PerfomMovements();
     }
 
+    public void SetLayerOrder(bool isFirstInList) =>
+        SpriteRenderer.sortingOrder = isFirstInList ? 1 : 0; 
+
     public void Setup(CardData _cardData, Sprite _rectoSprite, Sprite _versoSprite)
     {
         data = _cardData;
@@ -76,6 +81,7 @@ public class Card : MonoBehaviour, IClickable
     {
         this.SpriteRenderer.sprite = recto ? rectoSprite : versoSprite;
         this.Trigger.enabled = recto ? true : false;
+        IsOnRecto = recto;
     }
 
     public void StartMovingTo(Vector2 _targetPosition, Action _onMovementEndedAction = null)
@@ -129,7 +135,6 @@ public class Card : MonoBehaviour, IClickable
 
     public void OnMouseInputDown()
     {
-        Debug.Log(this.ToString());
     }
 
     public void OnMouseInputUp()

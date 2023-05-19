@@ -26,7 +26,6 @@ public class CardReceiver : EventHandlerMono, IClickable
         CardGrabManagerEventsHandler.OnPlacedCard -= OnPlacedCard;
     }
 
-
     public void AddLayCondition(CardLayConditions_Base layCondition) => cardLayConditions.Add(layCondition);
     public void RemoveLayCondition(CardLayConditions_Base layCondition) => cardLayConditions.Remove(layCondition);
 
@@ -54,6 +53,9 @@ public class CardReceiver : EventHandlerMono, IClickable
 
     private void PlaceCard(Card card)
     {
+        PeekNextCard()?.SetLayerOrder(false);
+        card.SetLayerOrder(true);
+
         cards.Push(card);
 
         card.gameObject.SetActive(true);
@@ -82,6 +84,26 @@ public class CardReceiver : EventHandlerMono, IClickable
         OnRemoveCard?.Invoke(cardToSend);
 
         return cardToSend;
+    }
+
+    public virtual List<Card> GetEveryCardsTo(Card card)
+    {
+        List<Card> cardsList = new List<Card>();
+
+        if (card == null) return cardsList;
+
+        Card current = PeekNextCard();
+        do
+        {
+            cardsList.Add(GetNextCard());
+            current.SetLayerOrder(false);
+            if (current == card) break;
+
+            current = PeekNextCard();
+        }
+        while (current != null && current.IsOnRecto);
+
+        return cardsList;
     }
 
     public Card PeekNextCard()
