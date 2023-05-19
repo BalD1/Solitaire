@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8febb23240b74bc448bc9e5c1ace09d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardsOffset: 0.25
+  cardsOffset: 0
   trigger: {fileID: 186662479296993722}
 --- !u!212 &186662479296993721
 SpriteRenderer:

@@ -87,7 +87,6 @@ public class Pile : EventHandlerMono, IClickable
             return;
         }
 
-        Debug.Log("yo");
         canTakeCard = false;
 
         List<Card> cards = new List<Card>(cardReceiver.GetCards());
