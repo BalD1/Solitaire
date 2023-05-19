@@ -48,6 +48,10 @@ public class Card : MonoBehaviour, IClickable
         }
     }
 
+    public const int KING_VALUE = 12;
+    public const int QUEEN_VALUE = 11;
+    public const int JACK_VALUE = 10;
+
     private CardData data;
     public CardData Data => data;
 
@@ -153,13 +157,13 @@ public class Card : MonoBehaviour, IClickable
         {
             switch (displayedVal)
             {
-                case 11:
+                case JACK_VALUE:
                     sb.Append("Jack");
                     break;
-                case 12:
+                case QUEEN_VALUE:
                     sb.Append("Queen");
                     break;
-                case 13:
+                case KING_VALUE:
                     sb.Append("King");
                     break;
             }

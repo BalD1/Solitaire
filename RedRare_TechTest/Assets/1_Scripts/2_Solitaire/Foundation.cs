@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +10,19 @@ public class Foundation : EventHandlerMono
 
     private CardLayConditions_Value emptyReceiverCondition;
 
+    [SerializeField, ReadOnly] private bool completed;
+    public bool IsCompleted => completed;
+
+    public Action<int, bool> OnCompletedStateChange = null;
+
+    public int ID { get; private set; }
+
     private void Reset()
     {
         cardReceiver = this.GetComponent<CardReceiver>();
     }
+
+    public void Setup(int id) => ID = id;
 
     protected override void EventRegister()
     {
@@ -30,6 +40,8 @@ public class Foundation : EventHandlerMono
     {
         base.Start();
 
+        completed = false;
+
         CardLayConditions_Color layConditions_Color = new CardLayConditions_Color(true, true);
         CardLayConditions_Value cardLayConditions_Value = new CardLayConditions_Value(false);
 
@@ -44,10 +56,22 @@ public class Foundation : EventHandlerMono
     private void OnLayedCard(Card card)
     {
         cardReceiver.RemoveLayCondition(emptyReceiverCondition);
+
+        if (card.Data.Value == Card.KING_VALUE)
+        {
+            completed = true;
+            OnCompletedStateChange?.Invoke(ID, completed);
+        }
     }
 
     private void OnRemovedCard(Card card)
     {
         if (cardReceiver.GetCardsCount() == 0) cardReceiver.AddLayCondition(emptyReceiverCondition);
+
+        if (card.Data.Value == Card.KING_VALUE)
+        {
+            completed = false;
+            OnCompletedStateChange?.Invoke(ID, completed);
+        }
     }
 }

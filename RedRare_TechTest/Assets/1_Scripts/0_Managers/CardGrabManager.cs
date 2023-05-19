@@ -60,8 +60,11 @@ public class CardGrabManager : EventHandlerMono
         if (clickedOnCard == null) return;
 
         grabbedCardBaseReceiver = clickedOnCard.GetCardReceiver();
+        if (grabbedCardBaseReceiver != null)
+            grabbedCards = grabbedCardBaseReceiver.GetEveryCardsTo(clickedOnCard);
+        else
+            grabbedCards = new List<Card>() { clickedOnCard};
 
-        grabbedCards = grabbedCardBaseReceiver.GetEveryCardsTo(clickedOnCard);
         foreach (var item in grabbedCards)
         {
             item.Trigger.enabled = false;
@@ -96,7 +99,7 @@ public class CardGrabManager : EventHandlerMono
         for (int i = grabbedCards.Count - 1; i >= 0; i--)
         {
             this.PlacedCard(grabbedCards[i], grabbedCardBaseReceiver);
-            grabbedCardBaseReceiver.ForceLayCard(grabbedCards[i]);
+            grabbedCardBaseReceiver?.ForceLayCard(grabbedCards[i]);
         }
 
         ResetGrabbedCard();

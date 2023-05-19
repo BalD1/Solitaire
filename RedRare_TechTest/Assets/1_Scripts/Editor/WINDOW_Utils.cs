@@ -10,18 +10,32 @@ using System.Collections.Generic;
 
 public class WINDOW_Utils : EditorWindow
 {
+    [SerializeField] private Card PF_card;
+    [SerializeField] private Sprite cardVersoSprite;
+
     private Vector2 windowScroll = Vector2.zero;
+    private Vector2 cardsManagerScroll = Vector2.zero;
     private Vector2 scenesScroll = Vector2.zero;
 
     private int scenesScrollView = 0;
+    private int cardsManagerScrollView = 0;
 
     private bool showScenes;
-
+    private bool showCardsManager;
     private bool showUIUtils;
+
+    private int cardValue = 0;
+    private Card.E_CardFamily cardFamily;
+    private bool rectoSide = true;
 
     private List<string> scenes = new List<string>();
 
     private const string SCENES_FOLDER_PATH = "Assets/4_Scenes/";
+
+    private const string cardsValueHelper = "King = 13 \n" +
+                                            "Queen = 12 \n" +
+                                            "Jack = 11";
+                                            
 
     [MenuItem("Window/Utils")]
     public static void ShowWindow()
@@ -38,6 +52,10 @@ public class WINDOW_Utils : EditorWindow
         if (GUILayout.Button("Force scripts recompile")) AssetDatabase.Refresh();
 
         ScenesManagement();
+
+        SimpleDraws.HorizontalLine();
+
+        CardsManager();
 
         SimpleDraws.HorizontalLine();
 
@@ -114,6 +132,65 @@ public class WINDOW_Utils : EditorWindow
         EditorGUILayout.EndVertical();
     }
 
+    private void CardsManager()
+    {
+        EditorGUILayout.BeginVertical("GroupBox");
+
+        // Set the scollView size, keep at 0 for auto size
+        cardsManagerScrollView = EditorGUILayout.IntField("View Size", cardsManagerScrollView);
+        cardsManagerScrollView = Mathf.Clamp(cardsManagerScrollView, 0, int.MaxValue);
+
+        cardsManagerScroll = EditorGUILayout.BeginScrollView(cardsManagerScroll, GUILayout.Height(cardsManagerScrollView));
+
+        showCardsManager = EditorGUILayout.Foldout(showCardsManager, "Cards Manager");
+
+        if (showCardsManager)
+        {
+            PF_card = (Card)EditorGUILayout.ObjectField("Card Prefab", PF_card, typeof(Card));
+            cardVersoSprite = (Sprite)EditorGUILayout.ObjectField("Card Verso Sprite", cardVersoSprite, typeof(Sprite));
+
+            GUI.enabled = false;
+            EditorGUILayout.TextArea(cardsValueHelper);
+            GUI.enabled = true;
+            EditorGUILayout.BeginHorizontal();
+
+            cardValue = EditorGUILayout.IntField("Card Value", cardValue, GUILayout.ExpandWidth(false));
+            cardValue = Mathf.Clamp(cardValue, 1, 13);
+            cardFamily = (Card.E_CardFamily)EditorGUILayout.EnumPopup("Card Family", cardFamily, GUILayout.ExpandWidth(false));
+            rectoSide = EditorGUILayout.Toggle("Recto Side", rectoSide, GUILayout.ExpandWidth(false));
+
+            EditorGUILayout.EndHorizontal();
+
+            if (GUILayout.Button("Create Card")) CreateCard(cardValue - 1, cardFamily, rectoSide);
+        }
+
+        EditorGUILayout.EndScrollView();
+
+
+        EditorGUILayout.EndVertical();
+    }
+
+    private void CreateCard(int value, Card.E_CardFamily family, bool rectoSide)
+    {
+        Sprite[] spritesData = Resources.LoadAll<Sprite>("SH_Cards");
+
+        Card.CardData cardData = new Card.CardData
+        (
+            _cardFamily: family,
+            _value: value % 13
+        );
+
+        // Create and setup the gameobject
+        Card card = Instantiate(PF_card);
+        card.Setup
+        (
+            _cardData: cardData,
+            _rectoSprite: spritesData[value + ((int)family * 13)],
+            _versoSprite: cardVersoSprite
+        );
+
+        card.SetCardState(rectoSide);
+    }
     private void UIUtils()
     {
         showUIUtils = EditorGUILayout.Foldout(showUIUtils, "UI Utils");
