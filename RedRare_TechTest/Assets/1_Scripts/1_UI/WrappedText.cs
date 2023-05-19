@@ -16,13 +16,15 @@ public class WrappedText : MonoBehaviour
     public float SpeedMultiplier = 1.0f;
     public float CurveScale = 1.0f;
 
-    void Awake()
+    private void OnValidate()
     {
-        m_TextComponent = gameObject.GetComponent<TMP_Text>();
-
         WarpText();
     }
 
+    private void Start()
+    {
+        WarpText();
+    }
 
     /// <summary>
     ///  Method to curve text along a Unity animation curve.
@@ -37,11 +39,15 @@ public class WrappedText : MonoBehaviour
         Vector3[] vertices;
         Matrix4x4 matrix;
 
+        if (m_TextComponent == null) m_TextComponent = gameObject.GetComponent<TMP_Text>();
         m_TextComponent.havePropertiesChanged = true; // Need to force the TextMeshPro Object to be updated.
 
         m_TextComponent.ForceMeshUpdate(); // Generate the mesh and populate the textInfo with data we can use and manipulate.
 
         TMP_TextInfo textInfo = m_TextComponent.textInfo;
+
+        if (textInfo == null) return;
+
         int characterCount = textInfo.characterCount;
 
         float boundsMinX = m_TextComponent.bounds.min.x;  //textInfo.meshInfo[0].mesh.bounds.min.x;
@@ -95,7 +101,6 @@ public class WrappedText : MonoBehaviour
             vertices[vertexIndex + 2] += offsetToMidBaseline;
             vertices[vertexIndex + 3] += offsetToMidBaseline;
         }
-
 
         // Upload the mesh with the revised information
         m_TextComponent.UpdateVertexData();

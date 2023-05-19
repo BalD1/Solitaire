@@ -4886,7 +4886,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   AngleMultiplier: 42.85
   SpeedMultiplier: 18.7
-  CurveScale: 10.5
+  CurveScale: 10
 --- !u!1001 &1875119721
 PrefabInstance:
   m_ObjectHideFlags: 0
