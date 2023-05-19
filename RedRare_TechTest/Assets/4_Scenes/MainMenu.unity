@@ -614,7 +614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5473155796165292651, guid: f89ab5ebb8fd4f140b04b9dbec29884c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5473155796165292651, guid: f89ab5ebb8fd4f140b04b9dbec29884c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -700,6 +700,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6649829447029725083, guid: f89ab5ebb8fd4f140b04b9dbec29884c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6649829447029725083, guid: f89ab5ebb8fd4f140b04b9dbec29884c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7256310688958437975, guid: f89ab5ebb8fd4f140b04b9dbec29884c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -731,6 +739,14 @@ PrefabInstance:
     - target: {fileID: 7256310689817449054, guid: f89ab5ebb8fd4f140b04b9dbec29884c, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389500527451878959, guid: f89ab5ebb8fd4f140b04b9dbec29884c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5.68631
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725958021345006499, guid: f89ab5ebb8fd4f140b04b9dbec29884c, type: 3}
+      propertyPath: m_text
+      value: English
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f89ab5ebb8fd4f140b04b9dbec29884c, type: 3}
@@ -1679,6 +1695,7 @@ GameObject:
   m_Component:
   - component: {fileID: 766325128}
   - component: {fileID: 766325130}
+  - component: {fileID: 766325131}
   - component: {fileID: 766325129}
   m_Layer: 5
   m_Name: Create Profile
@@ -1804,6 +1821,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766325127}
   m_CullTransparentMesh: 1
+--- !u!114 &766325131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766325127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a89e45ea503b84489b8772c04be328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMesh: {fileID: 766325129}
+  textTraductions:
+  - language: 0
+    text: NEW PROFILE
+  - language: 1
+    text: NOUVEAU PROFILE
 --- !u!1 &798904182
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,6 +2233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 991443526}
   - component: {fileID: 991443528}
+  - component: {fileID: 991443529}
   - component: {fileID: 991443527}
   m_Layer: 5
   m_Name: 'Fastest Game '
@@ -2323,6 +2359,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 991443525}
   m_CullTransparentMesh: 1
+--- !u!114 &991443529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991443525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a89e45ea503b84489b8772c04be328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMesh: {fileID: 991443527}
+  textTraductions:
+  - language: 0
+    text: 'Fastest Game :'
+  - language: 1
+    text: 'Partie la plus rapide :'
 --- !u!1 &1007276163
 GameObject:
   m_ObjectHideFlags: 0
@@ -2899,7 +2953,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2076267550}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.78053594, y: 0.8320459}
   m_AnchorMax: {x: 0.86979157, y: 0.97632676}
@@ -3523,6 +3577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1817480929}
   - component: {fileID: 1817480931}
+  - component: {fileID: 1817480932}
   - component: {fileID: 1817480930}
   m_Layer: 5
   m_Name: Played Games
@@ -3648,6 +3703,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1817480928}
   m_CullTransparentMesh: 1
+--- !u!114 &1817480932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817480928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a89e45ea503b84489b8772c04be328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMesh: {fileID: 1817480930}
+  textTraductions:
+  - language: 0
+    text: 'Played Games :'
+  - language: 1
+    text: "Parties Jou\xE9es :"
 --- !u!1 &1817879128
 GameObject:
   m_ObjectHideFlags: 0
@@ -3747,7 +3820,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897101932}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3765,6 +3838,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1928506853}
   - component: {fileID: 1928506855}
+  - component: {fileID: 1928506856}
   - component: {fileID: 1928506854}
   m_Layer: 5
   m_Name: Text (TMP)
@@ -3890,6 +3964,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1928506852}
   m_CullTransparentMesh: 1
+--- !u!114 &1928506856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928506852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a89e45ea503b84489b8772c04be328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMesh: {fileID: 1928506854}
+  textTraductions:
+  - language: 0
+    text: PLAY
+  - language: 1
+    text: JOUER
 --- !u!1 &1940177728
 GameObject:
   m_ObjectHideFlags: 0
@@ -3900,6 +3992,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1940177729}
   - component: {fileID: 1940177732}
+  - component: {fileID: 1940177733}
   - component: {fileID: 1940177731}
   - component: {fileID: 1940177730}
   m_Layer: 5
@@ -4046,6 +4139,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1940177728}
   m_CullTransparentMesh: 1
+--- !u!114 &1940177733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940177728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a89e45ea503b84489b8772c04be328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMesh: {fileID: 1940177731}
+  textTraductions:
+  - language: 0
+    text: Enter name...
+  - language: 0
+    text: Entrer nom...
 --- !u!1 &2069921050
 GameObject:
   m_ObjectHideFlags: 0
@@ -4222,8 +4333,8 @@ RectTransform:
   m_Children:
   - {fileID: 930702118}
   - {fileID: 24595365}
-  - {fileID: 158407893}
   - {fileID: 1362800782}
+  - {fileID: 158407893}
   - {fileID: 9081328205881665127}
   m_Father: {fileID: 1661987396}
   m_RootOrder: 0
@@ -4352,6 +4463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9081328204136209580}
   - component: {fileID: 9081328204136209618}
+  - component: {fileID: 9081328204136209619}
   - component: {fileID: 9081328204136209581}
   m_Layer: 5
   m_Name: Text (TMP)
@@ -4368,6 +4480,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9081328204136209583}
   m_CullTransparentMesh: 1
+--- !u!114 &9081328204136209619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9081328204136209583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a89e45ea503b84489b8772c04be328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMesh: {fileID: 9081328204136209581}
+  textTraductions:
+  - language: 0
+    text: CLOSE
+  - language: 1
+    text: RETOUR
 --- !u!114 &9081328205214096492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4542,6 +4672,7 @@ MonoBehaviour:
   profilesDropdown: {fileID: 1640997432}
   playedGamesCountTXT: {fileID: 180877490}
   fastestGameTXT: {fileID: 1007276165}
+  saveProfilesToFile: 0
 --- !u!1 &9081328206090559817
 GameObject:
   m_ObjectHideFlags: 0

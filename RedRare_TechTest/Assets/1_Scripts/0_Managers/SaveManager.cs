@@ -15,6 +15,8 @@ public static class SaveManager
 
         // ints
 
+        I_Language,
+
         // bools
 
         // strings

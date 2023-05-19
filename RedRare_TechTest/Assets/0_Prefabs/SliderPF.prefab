@@ -359,6 +359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3406715913779020502}
   - component: {fileID: 3406715913779020488}
+  - component: {fileID: 3454528291313176628}
   - component: {fileID: 3406715913779020489}
   m_Layer: 5
   m_Name: SliderTxt
@@ -395,6 +396,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3406715913779020503}
   m_CullTransparentMesh: 1
+--- !u!114 &3454528291313176628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3406715913779020503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a89e45ea503b84489b8772c04be328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMesh: {fileID: 3406715913779020489}
+  textTraductions:
+  - language: 0
+    text: Slider
+  - language: 1
+    text: Slider
 --- !u!114 &3406715913779020489
 MonoBehaviour:
   m_ObjectHideFlags: 0
