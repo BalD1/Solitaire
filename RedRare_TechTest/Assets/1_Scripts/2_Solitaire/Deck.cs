@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Deck : EventHandlerMono
@@ -74,8 +75,7 @@ public class Deck : EventHandlerMono
             cardsDeck[i] = card;
         }
 
-        cardsDeck.Shuffle(cardsDeck.Length);
-
+        cardsDeck = cardsDeck.ShuffleToArray();
         cardsQueue = new Queue<Card>(cardsDeck);
 
         this.DeckCreated();
