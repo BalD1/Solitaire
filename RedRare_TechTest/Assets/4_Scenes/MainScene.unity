@@ -1117,6 +1117,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 34d385df71853e74fb1bf63b59790e58, type: 3}
   - {fileID: 8300000, guid: c16ec66113efe9b4ca0aea807fc19e54, type: 3}
   cardsSlideAudio: {fileID: 8300000, guid: 677a02b3c06dd7440b8412baca949ca9, type: 3}
+  winSoundClip: {fileID: 8300000, guid: 80de271ba819f364f891cf7a4a3cc2f6, type: 3}
 --- !u!82 &449242175
 AudioSource:
   m_ObjectHideFlags: 0

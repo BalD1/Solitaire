@@ -9,6 +9,7 @@ public class CardsAudioManager : EventHandlerMono
 
     [SerializeField] private AudioClip[] cardGrabAudioClips;
     [SerializeField] private AudioClip cardsSlideAudio;
+    [SerializeField] private AudioClip winSoundClip;
 
     private void Reset()
     {
@@ -18,6 +19,7 @@ public class CardsAudioManager : EventHandlerMono
     protected override void EventRegister()
     {
         SolitaireManagerEventsHandler.OnStartGame += PlayCardsSlideAudio;
+        SolitaireManagerEventsHandler.OnWin += PlayWinSound;
         CardGrabManagerEventsHandler.OnGrabCard += PlayGrabAudio;
         CardGrabManagerEventsHandler.OnPlacedCard += PlayGrabAudio;
     }
@@ -25,6 +27,7 @@ public class CardsAudioManager : EventHandlerMono
     protected override void EventUnRegister()
     {
         SolitaireManagerEventsHandler.OnStartGame -= PlayCardsSlideAudio;
+        SolitaireManagerEventsHandler.OnWin -= PlayWinSound;
         CardGrabManagerEventsHandler.OnGrabCard -= PlayGrabAudio;
         CardGrabManagerEventsHandler.OnPlacedCard -= PlayGrabAudio;
     }
@@ -39,4 +42,9 @@ public class CardsAudioManager : EventHandlerMono
         audioSource.PlayOneShot(cardGrabAudioClips.RandomElement());
     }
     private void PlayGrabAudio(Card card, CardReceiver receiver) => PlayGrabAudio(new List<Card>());
+
+    private void PlayWinSound()
+    {
+        audioSource.PlayOneShot(winSoundClip);
+    }
 }
