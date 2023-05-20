@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 
 public class CardGrabManager : EventHandlerMono
@@ -54,13 +52,17 @@ public class CardGrabManager : EventHandlerMono
 
     private void OnClickDown(IClickable clickable)
     {
+        // ignore if already grabbing cards
         if (grabbedCards.Count > 0) return;
 
+        // Check if the clickable is a card
         Card clickedOnCard = clickable.GetGameObject().GetComponent<Card>();
         if (clickedOnCard == null) return;
 
+        // get the card receiver
         grabbedCardBaseReceiver = clickedOnCard.GetCardReceiver();
         if (grabbedCardBaseReceiver != null)
+            // get every cards until the one we clicked on
             grabbedCards = grabbedCardBaseReceiver.GetEveryCardsTo(clickedOnCard);
         else
             grabbedCards = new List<Card>() { clickedOnCard};
@@ -76,14 +78,16 @@ public class CardGrabManager : EventHandlerMono
 
     private void OnClickabkleUp(IClickable clickable)
     {
+        // ignore if we aren't grabbing cards
         if (grabbedCards.Count == 0) return;
 
+        // check if we clicked on a card or on a receiver
         Card card = clickable.GetGameObject().GetComponent<Card>();
-
         CardReceiver cardReceiver = card != null ? card.GetCardReceiver() :
                                     clickable.GetGameObject().GetComponent<CardReceiver>();
         if (cardReceiver == null) return;
 
+        // place every grabbed card on the receiver
         for (int i = grabbedCards.Count - 1; i >= 0; i--)
         {
             if (!cardReceiver.TryLayCard(grabbedCards[i])) return;
@@ -97,6 +101,7 @@ public class CardGrabManager : EventHandlerMono
     {
         if (grabbedCards.Count == 0) return;
 
+        // if the user grabbed card but didn't released input on a receiver
         for (int i = grabbedCards.Count - 1; i >= 0; i--)
         {
             this.PlacedCard(grabbedCards[i], grabbedCardBaseReceiver);

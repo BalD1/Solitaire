@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Collider2D))]
 public class CardReceiver : EventHandlerMono, IClickable
@@ -34,6 +32,11 @@ public class CardReceiver : EventHandlerMono, IClickable
         PlaceCard(card);
     }
 
+    /// <summary>
+    /// Check if the candidate <paramref name="card"/> respects the conditions in <seealso cref="cardLayConditions"/>
+    /// </summary>
+    /// <param name="card"></param>
+    /// <returns></returns>
     public bool TryLayCard(Card card)
     {
         foreach (var item in cardLayConditions)
@@ -51,8 +54,13 @@ public class CardReceiver : EventHandlerMono, IClickable
         return true;
     }
 
+    /// <summary>
+    /// Places the card on top of the receiver
+    /// </summary>
+    /// <param name="card"></param>
     private void PlaceCard(Card card)
     {
+        // make sure that the new last card always shows on top of others
         PeekNextCard()?.SetLayerOrder(false);
         card.SetLayerOrder(true);
 
@@ -60,6 +68,7 @@ public class CardReceiver : EventHandlerMono, IClickable
 
         card.gameObject.SetActive(true);
 
+        // give it a little offset
         Vector2 pos = this.transform.position;
         pos.y -= cardsOffset * (cards.Count - 1);
 
@@ -86,6 +95,11 @@ public class CardReceiver : EventHandlerMono, IClickable
         return cardToSend;
     }
 
+    /// <summary>
+    /// Returns every cards in the receiver until the given one <paramref name="card"/>
+    /// </summary>
+    /// <param name="card"></param>
+    /// <returns></returns>
     public virtual List<Card> GetEveryCardsTo(Card card)
     {
         List<Card> cardsList = new List<Card>();

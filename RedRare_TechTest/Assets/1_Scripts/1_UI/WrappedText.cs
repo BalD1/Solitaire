@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 /* 
- * From Unity TMP examples
+ * From Unity TMP examples;
+ * will wrap a TMP text on a circle
  */
 
 public class WrappedText : MonoBehaviour

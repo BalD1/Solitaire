@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(TMP_Dropdown))]
 public class LocalizationManager : MonoBehaviour
@@ -30,6 +27,9 @@ public class LocalizationManager : MonoBehaviour
         CheckLanguage();
     }
 
+    /// <summary>
+    /// Checks the language setting at the start of the scene
+    /// </summary>
     private void CheckLanguage()
     {
         Languages savedLanguage = (Languages)SaveManager.GetSavedIntKey(SaveManager.E_SaveKeys.I_Language);
@@ -37,6 +37,10 @@ public class LocalizationManager : MonoBehaviour
         dropdown.SetValueWithoutNotify((int)savedLanguage);
     }
 
+    /// <summary>
+    /// When the dropdown value of the options panel changes
+    /// </summary>
+    /// <param name="val"></param>
     private void OnDropDownValueChanged(int val)
     {
         Languages newLanguage = (Languages)val;

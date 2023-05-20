@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,6 +56,7 @@ public class Pile : EventHandlerMono, IClickable
             item.transform.position = this.transform.position;
         }
 
+        // the pile sprite
         if (cardsInPile.Count > 0)
         {
             spriteRenderer.sprite = cardBackSprite;
@@ -64,6 +64,10 @@ public class Pile : EventHandlerMono, IClickable
         }
     }
 
+    /// <summary>
+    /// Draw a card from the Pile
+    /// </summary>
+    /// <returns></returns>
     public Card Draw()
     {
         if (cardsInPile == null || cardsInPile.Count == 0) return null;
@@ -78,7 +82,8 @@ public class Pile : EventHandlerMono, IClickable
     public void OnMouseInputDown()
     {
         if (!canTakeCard) return;
-
+        
+        // if the pile is not empty when clicked, draw a card
         if (cardsInPile.Count > 0)
         {
             Card newCard = Draw();
@@ -89,6 +94,7 @@ public class Pile : EventHandlerMono, IClickable
 
         canTakeCard = false;
 
+        // else, recreate the pile from the returned cards
         List<Card> cards = new List<Card>(cardReceiver.GetCards());
         cardReceiver.EmptyStack();
 
@@ -100,6 +106,7 @@ public class Pile : EventHandlerMono, IClickable
             item.SetCardState(false);
         }
 
+        // little failsafe to prevent errors if the player clicks really fast
         LeanTween.delayedCall(pileRefillCooldown, () => canTakeCard = true);
     }
 

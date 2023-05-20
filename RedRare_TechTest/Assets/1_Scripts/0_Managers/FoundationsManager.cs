@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FoundationsManager : EventHandlerMono
@@ -65,6 +63,11 @@ public class FoundationsManager : EventHandlerMono
         foundations = GameObject.FindObjectsOfType(typeof(Foundation)) as Foundation[];
     }
 
+    /// <summary>
+    /// Called when a foundation completed state changes; if it went from uncompleted to completed or vice-versa
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="newState"></param>
     private void OnFoundationCompletedStateChange(int id, bool newState)
     {
         this.FoundationCompletedStateChange(id, newState);

@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CardReceiver))]
@@ -42,6 +40,7 @@ public class Foundation : EventHandlerMono
 
         completed = false;
 
+        // the card candidate must be of the same family, and greater by one
         CardLayConditions_Color layConditions_Color = new CardLayConditions_Color(true, true);
         CardLayConditions_Value cardLayConditions_Value = new CardLayConditions_Value(false);
 

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -63,6 +62,7 @@ public class ProfilePanel : MonoBehaviour
 
         Application.quitting += SaveProfilesToFile;
 
+        // setup listeners on UI
         inputField?.onEndEdit.AddListener(OnInputFieldEndedit);
 
         if (validateNewProfileButton != null)
@@ -80,23 +80,25 @@ public class ProfilePanel : MonoBehaviour
 
     private void InitializeProfilesDataOnUI()
     {
+        // if there is no profile, show "create profile" prompt
         if (profiles.Count == 0)
         {
             createProfileCTRL.Show();
             profileStatsCTRL.Hide();
             return;
         }
-        // else
+        // else, show stats 
 
         createProfileCTRL.Hide();
         profileStatsCTRL.Show();
 
+        // set a profile in datakeeper if there is none
         if (!DataKeeper.HaveValidProfile())
         {
             SetCurrentProfile(0);
             return;
         }
-        //else
+        //else show the profile in datakeeper
         
         for (int i = 0; i < profiles.Count; i++)
         {
@@ -122,6 +124,10 @@ public class ProfilePanel : MonoBehaviour
         ShowData(0);
     }
 
+    /// <summary>
+    /// Shows the profile's stats
+    /// </summary>
+    /// <param name="id"></param>
     private void ShowData(int id)
     {
         if (profiles.Count == 0) return;
@@ -150,14 +156,20 @@ public class ProfilePanel : MonoBehaviour
         if (result != "") validateNewProfileButton.interactable = true;
     }
 
+    /// <summary>
+    /// When the validate button for a new profile is pressed
+    /// </summary>
     private void ValidateNewProfile()
     {
+        // create new profile
         ProfilesData newProfile = new ProfilesData(Guid.NewGuid().ToString(), inputFieldResult, 0, -1);
         profiles.Add(newProfile);
 
+        // add it to dropdown
         TMPro.TMP_Dropdown.OptionData optionData = new TMP_Dropdown.OptionData(newProfile.name);
         profilesDropdown.options.Add(optionData);
 
+        // show it on UI
         if (profiles.Count == 1)
         {
             SetDropdownTextOnElement(0);

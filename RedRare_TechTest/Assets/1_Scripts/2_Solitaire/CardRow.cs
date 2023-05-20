@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +21,7 @@ public class CardRow : EventHandlerMono
     {
         base.Start();
 
+        // the card candidate must be of the opposite color, and lesser of one
         CardLayConditions_Color layConditions_Color = new CardLayConditions_Color(false, false);
         CardLayConditions_Value cardLayConditions_Value = new CardLayConditions_Value(true);
 
