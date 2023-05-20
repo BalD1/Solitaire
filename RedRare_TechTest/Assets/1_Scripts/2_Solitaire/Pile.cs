@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,9 @@ public class Pile : EventHandlerMono, IClickable
     [SerializeField] private Sprite emptyPileSprite;
 
     [SerializeField] private CardReceiver cardReceiver;
+
+    public Action onDraw;
+    public Action onReset;
 
     private Deck deck;
 
@@ -74,6 +78,8 @@ public class Pile : EventHandlerMono, IClickable
 
         if (cardsInPile.Count <= 1) spriteRenderer.sprite = emptyPileSprite;
 
+        onDraw?.Invoke();
+
         return cardsInPile.Pop();
     }
 
@@ -105,6 +111,8 @@ public class Pile : EventHandlerMono, IClickable
             item.transform.position = this.transform.position;
             item.SetCardState(false);
         }
+
+        onReset?.Invoke();
 
         // little failsafe to prevent errors if the player clicks really fast
         LeanTween.delayedCall(pileRefillCooldown, () => canTakeCard = true);
