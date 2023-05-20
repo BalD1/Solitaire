@@ -27,6 +27,8 @@ public class Card : MonoBehaviour, IClickable
 
     private Action onMovementEndedAction;
 
+    public Action onCardStateChange;
+
     // /!\ L'ordre dans l'enum doit respecter l'ordre de la texture Spritesheet
     public enum E_CardFamily
     {
@@ -86,6 +88,8 @@ public class Card : MonoBehaviour, IClickable
         this.SpriteRenderer.sprite = recto ? rectoSprite : versoSprite;
         this.Trigger.enabled = recto ? true : false;
         IsOnRecto = recto;
+
+        onCardStateChange?.Invoke();
     }
 
     public void StartMovingTo(Vector2 _targetPosition, Action _onMovementEndedAction = null)

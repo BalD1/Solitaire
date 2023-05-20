@@ -71,6 +71,7 @@ public class CardGrabManager : EventHandlerMono
             item.SpriteRenderer.sortingLayerName = SortingLayersNames.FG_LOWEST;
         }
 
+        this.GrabCard(grabbedCards);
     }
 
     private void OnClickabkleUp(IClickable clickable)

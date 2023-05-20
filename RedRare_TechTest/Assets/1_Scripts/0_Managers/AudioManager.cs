@@ -6,6 +6,9 @@ using UnityEngine.UI;
 using BalDUtilities.Misc;
 using UnityEngine.SceneManagement;
 using System;
+using Unity.VisualScripting;
+using UnityEditor;
+using TMPro;
 
 public class AudioManager : Singleton<AudioManager>
 {
@@ -69,6 +72,36 @@ public class AudioManager : Singleton<AudioManager>
 
     [SerializeField] private MusicClips[] musicClipsByTag;
     [SerializeField] private SFXClips[] sfxClipsByTag;
+
+    [SerializeField] private Button[] uiButtons = new Button[0];
+    [SerializeField] private TMP_Dropdown[] uiDropdown = new TMP_Dropdown[0];
+
+    [InspectorButton(nameof(PopulateUIArrays), ButtonWidth = 150)]
+    [SerializeField] private bool populateUIArrays;
+
+    // since it's heavy, it's better to do it in editor
+    private void PopulateUIArrays()
+    {
+#if UNITY_EDITOR
+        EditorUtility.SetDirty(this);
+        uiButtons = GameObject.FindObjectsOfType<Button>();
+        uiDropdown = GameObject.FindObjectsOfType<TMP_Dropdown>(); 
+#endif
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        foreach (var item in uiButtons)
+        {
+            item.onClick.AddListener(() => Play2DSFXWithRandomPitch(E_SFXClipsTags.Clic));
+        }
+        foreach (var item in uiDropdown)
+        {
+            item.onValueChanged.AddListener((int i) => Play2DSFXWithRandomPitch(E_SFXClipsTags.Clic));
+        }
+    }
 
     private void Start()
     {
@@ -138,6 +171,47 @@ public class AudioManager : Singleton<AudioManager>
         }
 
         Debug.LogError("Could not find " + key + " in sfxClipsByTag");
+    }
+    public void Play2DSFX(ButtonArgs_AudioClip buttonArgs)
+    {
+        foreach (var item in sfxClipsByTag)
+        {
+            if (buttonArgs.args == item.tag)
+            {
+                sfx2DSource.PlayOneShot(item.clip);
+                return;
+            }
+        }
+    }
+    public void Play2DSFXWithRandomPitch(ButtonArgs_AudioClip buttonArgs)
+    {
+        foreach (var item in sfxClipsByTag)
+        {
+            if (buttonArgs.args == item.tag)
+            {
+                PlayClipWithRandomPitch(sfx2DSource, item.clip, .25f);
+                return;
+            }
+        }
+    }
+    public void Play2DSFXWithRandomPitch(E_SFXClipsTags key)
+    {
+        foreach (var item in sfxClipsByTag)
+        {
+            if (item.tag.Equals(key))
+            {
+                PlayClipWithRandomPitch(sfx2DSource, item.clip, .25f);
+                return;
+            }
+        }
+    }
+
+    private void PlayClipWithRandomPitch(AudioSource source, AudioClip clip, float pitchRange)
+    {
+        float sourceBasePitch = source.pitch;
+        source.pitch = UnityEngine.Random.Range(-pitchRange, pitchRange);
+        source.PlayOneShot(clip);
+        source.pitch = sourceBasePitch;
     }
 
     public void PauseMusic() => FadeMusic(true, () => musicSource.Pause());
