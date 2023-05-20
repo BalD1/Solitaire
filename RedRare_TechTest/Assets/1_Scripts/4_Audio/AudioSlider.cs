@@ -28,7 +28,7 @@ public class AudioSlider : MonoBehaviour
     /// </summary>
     private void LoadSlidersValue()
     {
-        slider.value = SaveManager.GetSavedFloatKey(saveKey);
+        slider.SetValueWithoutNotify( SaveManager.GetSavedFloatKey(saveKey));
     }
 
     public void OnMainSliderValueChange(float value) => HandleSliderChange(value, saveKey);

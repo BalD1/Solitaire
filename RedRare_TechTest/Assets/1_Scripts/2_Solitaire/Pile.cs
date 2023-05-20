@@ -74,11 +74,14 @@ public class Pile : EventHandlerMono, IClickable
     /// <returns></returns>
     public Card Draw()
     {
-        if (cardsInPile == null || cardsInPile.Count == 0) return null;
+        if (cardsInPile == null || cardsInPile.Count == 0 || !canTakeCard) return null;
 
         if (cardsInPile.Count <= 1) spriteRenderer.sprite = emptyPileSprite;
 
         onDraw?.Invoke();
+
+        canTakeCard = false;
+        LeanTween.delayedCall(pileRefillCooldown, () => canTakeCard = true);
 
         return cardsInPile.Pop();
     }

@@ -117,16 +117,20 @@ public class AudioManager : Singleton<AudioManager>
         GetParam(masterKey, masterVolParam);
         GetParam(musicKey, musicVolParam);
         GetParam(sfxKey, sfxVolparam);
-
-        mainMixer.SetFloat(masterVolParam, SaveManager.GetSavedFloatKey(SaveManager.E_SaveKeys.F_MasterVolume));
-        mainMixer.SetFloat(musicVolParam, SaveManager.GetSavedFloatKey(SaveManager.E_SaveKeys.F_MusicVolume));
-        mainMixer.SetFloat(sfxVolparam, SaveManager.GetSavedFloatKey(SaveManager.E_SaveKeys.F_SFXVolume));
     }
+
 
     private void GetParam(string key, string param)
     {
         if (!PlayerPrefs.HasKey(key)) PlayerPrefs.SetFloat(key, baseVolumeValue);
-        mainMixer.SetFloat(param, SaveManager.GetSavedFloatKey(key));
+
+        float newVol = 0;
+        float savedVal = SaveManager.GetSavedFloatKey(key);
+
+        if (savedVal > 0) newVol = Mathf.Log10(savedVal) * volMultiplier;
+        else newVol = -80f;
+
+        mainMixer.SetFloat(param, newVol);
     }
 
     public void ChangeMixerPitch(string param, float newPitch) => mainMixer.SetFloat(param, newPitch);
