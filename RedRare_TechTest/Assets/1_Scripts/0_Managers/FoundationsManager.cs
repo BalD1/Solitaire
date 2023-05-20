@@ -32,12 +32,37 @@ public class FoundationsManager : EventHandlerMono
 
     protected override void Start()
     {
-        base.Start();
+        CheckIfFoundationsArrayAreCorrect();
 
         for (int i = 0; i < foundations.Length; i++)
         {
             foundations[i].Setup(i);
         }
+
+        base.Start();
+    }
+
+    private void CheckIfFoundationsArrayAreCorrect()
+    {
+        if (foundations == null || foundations.Length == 0)
+        {
+            SetupFoundationsArray();
+            return;
+        }
+
+        foreach (var item in foundations)
+        {
+            if (item == null)
+            {
+                SetupFoundationsArray();
+                return;
+            }
+        }
+    }
+
+    private void SetupFoundationsArray()
+    {
+        foundations = GameObject.FindObjectsOfType(typeof(Foundation)) as Foundation[];
     }
 
     private void OnFoundationCompletedStateChange(int id, bool newState)

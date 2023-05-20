@@ -9,6 +9,8 @@ public class SolitaireManager : EventHandlerMono
     [SerializeField] private bool EDITOR_forceWin;
 #endif
 
+    private float gameStartTime;
+
     protected override void EventRegister()
     {
         FoundationsManagerEventsHandler.OnEveryFoundationCompleted += CallWin;
@@ -19,7 +21,23 @@ public class SolitaireManager : EventHandlerMono
         FoundationsManagerEventsHandler.OnEveryFoundationCompleted -= CallWin;
     }
 
-    public void CallStartGame() => this.StartGame();
+    public void CallStartGame()
+    {
+        this.StartGame();
+        this.gameStartTime = Time.timeSinceLevelLoad;
 
-    private void CallWin() => this.Win();
+        if (DataKeeper.HaveValidProfile())
+            DataKeeper.CurrentProfile.playedGames++;
+    }
+
+    private void CallWin()
+    {
+        this.Win();
+
+        float gameTime = Time.timeSinceLevelLoad - gameStartTime;
+
+        if (DataKeeper.HaveValidProfile())
+            if (DataKeeper.CurrentProfile.fastestGame > gameTime || DataKeeper.CurrentProfile.fastestGame == -1)
+                DataKeeper.CurrentProfile.fastestGame = gameTime;
+    }
 }

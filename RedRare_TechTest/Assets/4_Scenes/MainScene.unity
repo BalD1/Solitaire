@@ -1327,10 +1327,10 @@ RectTransform:
   m_Father: {fileID: 709169667}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.062175196, y: 0.18131156}
+  m_AnchorMax: {x: 0.9397521, y: 0.89800006}
+  m_AnchoredPosition: {x: 0.0921936, y: 0.106399536}
+  m_SizeDelta: {x: -0.5105972, y: 0.2552986}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &553686000
 MonoBehaviour:
@@ -2508,6 +2508,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   m_MaxRayIntersections: 0
+--- !u!114 &1159742885 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6202277787727845523, guid: 21e588f36a1205c438f091ffc6e11c53, type: 3}
+  m_PrefabInstance: {fileID: 452532643}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a328002aacdc8740b57494b1fee5f73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1232165884
 GameObject:
   m_ObjectHideFlags: 0
@@ -3356,6 +3367,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 186662479296993720, guid: 21e588f36a1205c438f091ffc6e11c53, type: 3}
   m_PrefabInstance: {fileID: 1466271882}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1466271887 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6202277787727845523, guid: 21e588f36a1205c438f091ffc6e11c53, type: 3}
+  m_PrefabInstance: {fileID: 1466271882}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a328002aacdc8740b57494b1fee5f73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1487121397 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5473155796165292651, guid: f89ab5ebb8fd4f140b04b9dbec29884c, type: 3}
@@ -4728,8 +4750,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foundations:
   - {fileID: 250142607}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1466271887}
+  - {fileID: 1159742885}
   - {fileID: 1821380454}
 --- !u!1001 &186662479348201312
 PrefabInstance:
