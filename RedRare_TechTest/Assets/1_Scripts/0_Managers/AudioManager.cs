@@ -118,6 +118,7 @@ public class AudioManager : Singleton<AudioManager>
         GetParam(musicKey, musicVolParam);
         GetParam(sfxKey, sfxVolparam);
 
+        mainMixer.SetFloat(masterVolParam, SaveManager.GetSavedFloatKey(SaveManager.E_SaveKeys.F_MasterVolume));
         mainMixer.SetFloat(musicVolParam, SaveManager.GetSavedFloatKey(SaveManager.E_SaveKeys.F_MusicVolume));
         mainMixer.SetFloat(sfxVolparam, SaveManager.GetSavedFloatKey(SaveManager.E_SaveKeys.F_SFXVolume));
     }

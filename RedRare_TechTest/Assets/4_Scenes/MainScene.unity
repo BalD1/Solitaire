@@ -1803,7 +1803,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 81.3
+  m_fontSize: 81.35
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2473,9 +2473,9 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: -0.00031888112
+    x: 0
     y: 0
-    width: 1.0006378
+    width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -2504,7 +2504,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130634804}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1dfede0577d0a54ca938cb385ce45af, type: 3}
   m_Name: 
@@ -4259,7 +4259,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 173.6
+  m_fontSize: 173.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
